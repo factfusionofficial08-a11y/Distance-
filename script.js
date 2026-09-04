@@ -102,14 +102,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Define the content for each card here. You can change the title and text for each card below:
     const cardsData = [
-        { file: '1.jpg', title: 'Hint ', text: 'As time flies, some start fading away from our lives. Can you guess who’s fading away?' },
-        { file: '2.jpg', title: 'Hint ', text: 'Three butterflies. Three hopes.Each one belongs to someone.But they are slowly flying away.Can you guess who the three are?' },
-        { file: '3.jpg', title: 'Hint', text: 'Think about the Carters past.Look closely. Think wisely.From your perspective, what do you see? What does the past tell you about the Carters? Maybe the answers were there all along.' },
-        { file: '4.jpg', title: 'Hint', text: 'Look at the stars above him.Their formation is not random.Find the pattern.Find its name.Then youl will understand what it means.' },
-        { file: '5.png', title: 'Hint', text: 'A rose. A blood stain.One represents love.The other hides a name.Look closely.Can you identify the person?' },
-        { file: '6.jpg', title: 'Hint', text: 'Someone who carries pride and honor, dedicated to a long journey. But in this world, not everyone can be trusted. Operation New Dawn has failed before not once, not twice, but many times. Behind every failure is one powerful personality. Can you guess who? Time will reveal the truth.' },
-        { file: '7.jpg', title: 'Hint', text: 'The world will mourn. Officials will send their deepest sympathies, and the government will move on. But somewhere in the crowd, one person will never forget Carter and will carry his legacy forward. Who is that person? ' },
-        { file: '8.jpg', title: 'Hint', text: 'The time is 21.07 PM. The first step to represent the story of Distance. Many people cherish the moment, history for America. But one is smiling with tears, filled with pride as well… yet that personality only hopes one thing,  Come Back… ' }
+        { file: '01card.jpg', title: 'Hint ', text: 'As time flies, some start fading away from our lives. Can you guess who’s fading away?' },
+        { file: '02card.jpg', title: 'Hint ', text: 'Three butterflies. Three hopes.Each one belongs to someone.But they are slowly flying away.Can you guess who the three are?' },
+        { file: '03card.jpg', title: 'Hint', text: 'Think about the Carters past.Look closely. Think wisely.From your perspective, what do you see? What does the past tell you about the Carters? Maybe the answers were there all along.' },
+        { file: '04card.jpg', title: 'Hint', text: 'Look at the stars above him.Their formation is not random.Find the pattern.Find its name.Then youl will understand what it means.' },
+        { file: '05card.png', title: 'Hint', text: 'A rose. A blood stain.One represents love.The other hides a name.Look closely.Can you identify the person?' },
+        { file: '06card.jpg', title: 'Hint', text: 'Someone who carries pride and honor, dedicated to a long journey. But in this world, not everyone can be trusted. Operation New Dawn has failed before not once, not twice, but many times. Behind every failure is one powerful personality. Can you guess who? Time will reveal the truth.' },
+        { file: '07card.jpg', title: 'Hint', text: 'The world will mourn. Officials will send their deepest sympathies, and the government will move on. But somewhere in the crowd, one person will never forget Carter and will carry his legacy forward. Who is that person? ' },
+        { file: '08card.jpg', title: 'Hint', text: 'The time is 21.07 PM. The first step to represent the story of Distance. Many people cherish the moment, history for America. But one is smiling with tears, filled with pride as well… yet that personality only hopes one thing,  Come Back… ' }
     ];
 
     cardsData.forEach((data, index) => {
