@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Define the content for each card here. You can change the title and text for each card below:
     const cardsData = [
-        { file: '01card.jpg', title: 'Hint ', text: 'As time flies, some start fading away from our lives. Can you guess who’s fading away?' },
+        { file: '01card.jpg', title: 'Hint ', text: 'As time flies, some start fading away from our lives. Can you guess whos fading away?' },
         { file: '02card.jpg', title: 'Hint ', text: 'Three butterflies. Three hopes.Each one belongs to someone.But they are slowly flying away.Can you guess who the three are?' },
         { file: '03card.jpg', title: 'Hint', text: 'Think about the Carters past.Look closely. Think wisely.From your perspective, what do you see? What does the past tell you about the Carters? Maybe the answers were there all along.' },
         { file: '04card.jpg', title: 'Hint', text: 'Look at the stars above him.Their formation is not random.Find the pattern.Find its name.Then youl will understand what it means.' },
@@ -132,9 +132,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Handle potentially missing files like 5.jpg gracefully by falling back to 6.jpg
         img.onerror = function() {
             this.onerror = null; // Prevent infinite loop
-            this.src = './cards/6.jpg'; 
+            this.src = './fonts/cards/06card.jpg'; 
         };
-        img.src = `./cards/${data.file}`;
+        img.src = `./fonts/cards/${data.file}`;
         img.alt = `Conspiracy Card ${index + 1}`;
         cardFront.appendChild(img);
 
