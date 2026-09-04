@@ -104,9 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardsData = [
         { file: '1.jpg', title: 'Hint ', text: 'As time flies, some start fading away from our lives. Can you guess who’s fading away?' },
         { file: '2.jpg', title: 'Hint ', text: 'Three butterflies. Three hopes.Each one belongs to someone.But they are slowly flying away.Can you guess who the three are?' },
-
-
-
         { file: '3.jpg', title: 'Hint', text: 'Think about the Carters past.Look closely. Think wisely.From your perspective, what do you see? What does the past tell you about the Carters? Maybe the answers were there all along.' },
         { file: '4.jpg', title: 'Hint', text: 'Look at the stars above him.Their formation is not random.Find the pattern.Find its name.Then youl will understand what it means.' },
         { file: '5.png', title: 'Hint', text: 'A rose. A blood stain.One represents love.The other hides a name.Look closely.Can you identify the person?' },
