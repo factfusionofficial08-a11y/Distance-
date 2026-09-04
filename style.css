@@ -1,0 +1,426 @@
+@font-face {
+    font-family: 'Dream Orphanage';
+    src: url('./fonts/dream orphanage rg.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Georgia Custom';
+    src: url('./fonts/Georgia-PersonalUse.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Norwester';
+    src: url('./fonts/norwester.otf') format('opentype');
+}
+
+:root {
+    --bg-color: #d2cecd;
+    --text-primary: #111;
+    --card-bg: #fff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: 'Georgia Custom', serif;
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+p {
+    font-family: 'Norwester', sans-serif;
+}
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 1s ease-out, visibility 1s;
+}
+
+.loading-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.loading-logo {
+    width: 160px;
+    height: auto;
+}
+
+.progress-bar-container {
+    width: 250px;
+    height: 12px;
+    background: transparent;
+    border: 2px solid #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    padding: 2px;
+    margin-top: 10px;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #fff;
+    border-radius: 2px;
+    transition: width 0.1s ease;
+}
+
+.enter-btn {
+    padding: 12px 30px;
+    background-color: #fff;
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Norwester', sans-serif;
+    font-size: 1.2rem;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.enter-btn:hover {
+    background-color: #eee;
+    transform: scale(1.05);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 20px;
+    transition: opacity 1.5s ease-in;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.header h1 {
+    font-family: 'Dream Orphanage', sans-serif;
+    font-size: 3.5rem;
+    font-weight: normal;
+    margin-bottom: 40px;
+    line-height: 1.1;
+    letter-spacing: 0.5px;
+}
+
+.intro-text p {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto 25px auto;
+    text-align: center;
+    letter-spacing: 0.2px;
+}
+
+/* Cards Grid */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 40px;
+    justify-items: center;
+}
+
+@media (min-width: 650px) {
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 900px) {
+    .cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (min-width: 1200px) {
+    .cards-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.card-container {
+    perspective: 1200px;
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 2.5 / 3.5;
+    cursor: pointer;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    border-radius: 24px;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.card-front {
+    background-color: #000;
+}
+
+.card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-back {
+    background-color: var(--card-bg);
+    color: #111;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.card-back h2 {
+    font-family: 'Dream Orphanage', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+.card-back p {
+    font-size: 1.05rem;
+    color: #444;
+    line-height: 1.4;
+}
+
+/* Screenshots Section */
+.screenshots-section {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.screenshots-section h2 {
+    font-family: 'Dream Orphanage', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 40px;
+    font-weight: normal;
+}
+
+.screenshots-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+@media (min-width: 768px) {
+    .screenshots-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.screenshots-grid img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.screenshots-grid img:hover {
+    transform: scale(1.05);
+}
+
+/* Trailer Section */
+.divider {
+    border: none;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    margin: 80px auto;
+    width: 80%;
+    max-width: 600px;
+}
+
+.trailer-section {
+    text-align: center;
+    padding-bottom: 80px;
+}
+
+.trailer-section h2 {
+    font-family: 'Dream Orphanage', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 40px;
+    font-weight: normal;
+}
+
+.video-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.trailer-placeholder {
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
+    background-color: #111;
+    color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    font-family: 'Norwester', sans-serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 2px dashed rgba(255,255,255,0.2);
+}
+
+.trailer-placeholder h3 {
+    font-weight: normal;
+    font-size: 1.5rem;
+}
+
+.drive-btn {
+    display: inline-block;
+    padding: 15px 40px;
+    background-color: #fff;
+    color: #000;
+    text-decoration: none;
+    font-family: 'Norwester', sans-serif;
+    font-size: 1.5rem;
+    border-radius: 8px;
+    transition: transform 0.2s, background-color 0.2s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.drive-btn:hover {
+    transform: scale(1.05);
+    background-color: #eee;
+}
+
+/* Audio Section */
+.audio-section {
+    text-align: center;
+    padding-bottom: 80px;
+}
+
+.audio-section h2 {
+    font-family: 'Dream Orphanage', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 40px;
+    font-weight: normal;
+}
+
+.audio-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.custom-audio-player {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(90deg, #6b5c90, #958a9e);
+    border-radius: 50px;
+    padding: 15px 30px;
+    gap: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.play-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.3);
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+}
+
+.play-btn:hover {
+    background-color: rgba(255,255,255,0.5);
+}
+
+.waveform-container {
+    flex-grow: 1;
+    height: 40px;
+    background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.2) 0px, rgba(255,255,255,0.2) 2px, transparent 2px, transparent 5px);
+    position: relative;
+    border-radius: 4px;
+}
+
+.waveform-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.9) 0px, rgba(255,255,255,0.9) 2px, transparent 2px, transparent 5px);
+    pointer-events: none;
+    border-radius: 4px;
+}
+
+.audio-seeker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    margin: 0;
+    -webkit-appearance: none;
+    background: transparent;
+}
+
+.time-display {
+    color: white;
+    font-family: 'Norwester', sans-serif;
+    font-size: 1rem;
+    min-width: 110px;
+    text-align: right;
+    letter-spacing: 1px;
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conspiracies Cards</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <img src="./Images/logos and others/logo loading screen.png" alt="CIA Logo" class="loading-logo">
+            <button id="enter-btn" class="enter-btn">Lets Goo</button>
+            <div class="progress-bar-container" id="progress-container" style="display: none;">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="main-content" style="opacity: 0;">
+        <header class="header">
+            <h1>Conspiracy<br>Cards</h1>
+            
+            <div class="intro-text">
+                <p>As you read DISTANCE, you'll encounter fragments of its world, conspiracies, theories, hidden connections, and clues scattered throughout the story.<br>
+                Some cards reveal secrets that belong to the moment you're reading.</p>
+
+                <p>Others point toward what hasn't happened yet.<br>
+                Don't open every card at once.</p>
+
+                <p>Some truths are meant to be discovered. Others are meant to remain hidden until the story catches up with them.</p>
+
+                <p>Read the book first. Follow the clues. When a card becomes available, decide whether you're ready to uncover what's behind it.</p>
+
+                <p>Because in DISTANCE, knowing the truth too early can change the way you see everything.</p>
+            </div>
+        </header>
+
+        <div class="cards-grid">
+            <!-- Cards will be dynamically injected here by script.js -->
+        </div>
+
+        <hr class="divider">
+        
+        <section class="screenshots-section">
+            <h2>Screenshots</h2>
+            <div class="screenshots-grid">
+                <img src="./SCEENSHOTS/1.png" alt="Screenshot 1">
+                <img src="./SCEENSHOTS/2.png" alt="Screenshot 2">
+                <img src="./SCEENSHOTS/3.png" alt="Screenshot 3">
+                <img src="./SCEENSHOTS/4.png" alt="Screenshot 4">
+            </div>
+        </section>
+
+        <hr class="divider">
+        
+        <section class="trailer-section">
+            <h2>Trailer</h2>
+            <div class="video-container" id="trailer-container">
+                <!-- Injected by script.js -->
+            </div>
+        </section>
+
+        <hr class="divider">
+        
+        <section class="audio-section">
+            <h2>Inspired Audio</h2>
+            <div class="audio-list">
+                <!-- Audio Player 1 -->
+                <div class="custom-audio-player">
+                    <audio id="audio1" src="./audio/Elderbrook - Inner Light with Bob Moses (slowed  reverb).mp3"></audio>
+                    <button class="play-btn" onclick="togglePlay('audio1', this)">
+                        <span class="play-icon">▶</span>
+                    </button>
+                    <div class="waveform-container">
+                        <div class="waveform-progress" id="progress-audio1"></div>
+                        <input type="range" class="audio-seeker" id="seek-audio1" min="0" max="100" step="0.1" value="0" oninput="seekAudioDrag('audio1', this)" onchange="seekAudioChange('audio1', this)">
+                    </div>
+                    <div class="time-display" id="time-audio1">00:00 - 00:00</div>
+                </div>
+                
+                <!-- Audio Player 2 -->
+                <div class="custom-audio-player">
+                    <audio id="audio2" src="./audio/Hans Zimmer - Time (Slowed  reverb).mp3"></audio>
+                    <button class="play-btn" onclick="togglePlay('audio2', this)">
+                        <span class="play-icon">▶</span>
+                    </button>
+                    <div class="waveform-container">
+                        <div class="waveform-progress" id="progress-audio2"></div>
+                        <input type="range" class="audio-seeker" id="seek-audio2" min="0" max="100" step="0.1" value="0" oninput="seekAudioDrag('audio2', this)" onchange="seekAudioChange('audio2', this)">
+                    </div>
+                    <div class="time-display" id="time-audio2">00:00 - 00:00</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
