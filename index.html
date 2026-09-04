@@ -69,29 +69,35 @@
             <h2>Inspired Audio</h2>
             <div class="audio-list">
                 <!-- Audio Player 1 -->
-                <div class="custom-audio-player">
-                    <audio id="audio1" src="./audio/Elderbrook - Inner Light with Bob Moses (slowed  reverb).mp3"></audio>
-                    <button class="play-btn" onclick="togglePlay('audio1', this)">
-                        <span class="play-icon">▶</span>
-                    </button>
-                    <div class="waveform-container">
-                        <div class="waveform-progress" id="progress-audio1"></div>
-                        <input type="range" class="audio-seeker" id="seek-audio1" min="0" max="100" step="0.1" value="0" oninput="seekAudioDrag('audio1', this)" onchange="seekAudioChange('audio1', this)">
+                <div class="audio-item">
+                    <div class="audio-title">Elderbrook - Inner Light</div>
+                    <div class="custom-audio-player">
+                        <audio id="audio1" src="./audio/Elderbrook - Inner Light with Bob Moses (slowed  reverb).mp3"></audio>
+                        <button class="play-btn" onclick="togglePlay('audio1', this)">
+                            <span class="play-icon">▶</span>
+                        </button>
+                        <div class="waveform-container">
+                            <div class="waveform-progress" id="progress-audio1"></div>
+                            <input type="range" class="audio-seeker" id="seek-audio1" min="0" max="100" step="0.1" value="0" oninput="seekAudioDrag('audio1', this)" onchange="seekAudioChange('audio1', this)">
+                        </div>
+                        <div class="time-display" id="time-audio1">00:00 - 00:00</div>
                     </div>
-                    <div class="time-display" id="time-audio1">00:00 - 00:00</div>
                 </div>
                 
                 <!-- Audio Player 2 -->
-                <div class="custom-audio-player">
-                    <audio id="audio2" src="./audio/Hans Zimmer - Time (Slowed  reverb).mp3"></audio>
-                    <button class="play-btn" onclick="togglePlay('audio2', this)">
-                        <span class="play-icon">▶</span>
-                    </button>
-                    <div class="waveform-container">
-                        <div class="waveform-progress" id="progress-audio2"></div>
-                        <input type="range" class="audio-seeker" id="seek-audio2" min="0" max="100" step="0.1" value="0" oninput="seekAudioDrag('audio2', this)" onchange="seekAudioChange('audio2', this)">
+                <div class="audio-item">
+                    <div class="audio-title">Hans Zimmer - Time</div>
+                    <div class="custom-audio-player">
+                        <audio id="audio2" src="./audio/Hans Zimmer - Time (Slowed  reverb).mp3"></audio>
+                        <button class="play-btn" onclick="togglePlay('audio2', this)">
+                            <span class="play-icon">▶</span>
+                        </button>
+                        <div class="waveform-container">
+                            <div class="waveform-progress" id="progress-audio2"></div>
+                            <input type="range" class="audio-seeker" id="seek-audio2" min="0" max="100" step="0.1" value="0" oninput="seekAudioDrag('audio2', this)" onchange="seekAudioChange('audio2', this)">
+                        </div>
+                        <div class="time-display" id="time-audio2">00:00 - 00:00</div>
                     </div>
-                    <div class="time-display" id="time-audio2">00:00 - 00:00</div>
                 </div>
             </div>
         </section>
