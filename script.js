@@ -94,14 +94,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cards Data
     const cardsGrid = document.querySelector('.cards-grid');
     const cardsData = [
-        { file: '1.jpg', title: 'Hint', text: "As time flies, some start fading away from our lives. Can you guess who's fading away?" },
-        { file: '2.jpg', title: 'Hint', text: "Three butterflies. Three hopes. Each one belongs to someone. But they are slowly flying away. Can you guess who the three are?" },
-        { file: '3.jpg', title: 'Hint', text: "Think about the Carter's past. Look closely. Think wisely. From your perspective, what do you see? What does the past tell you about the Carters? Maybe the answers were there all along." },
-        { file: '4.jpg', title: 'Hint', text: "Look at the stars above him. Their formation is not random. Find the pattern. Find its name. Then you will understand what it means." },
-        { file: 'cardnw.png', title: 'Hint', text: "A rose. A blood stain. One represents love. The other hides a name. Look closely. Can you identify the person?" },
-        { file: '6.jpg', title: 'Hint', text: "Someone who carries pride and honor, dedicated to a long journey. But in this world, not everyone can be trusted. Operation New Dawn has failed before not once, not twice, but many times. Behind every failure is one powerful personality. Can you guess who? Time will reveal the truth." },
-        { file: '7.jpg', title: 'Hint', text: "The world will mourn. Officials will send their deepest sympathies, and the government will move on. But somewhere in the crowd, one person will never forget Carter and will carry his legacy forward. Who is that person?" },
-        { file: '8.jpg', title: 'Hint', text: "The time is 21.07 PM. The first step to represent the story of Distance. Many people cherish the moment, history for America. But one is smiling with tears, filled with pride as well. Yet that personality only hopes one thing, Come Back." }
+        { file: '01card.jpg', altFile: '1.jpg', title: 'Hint', text: "As time flies, some start fading away from our lives. Can you guess who's fading away?" },
+        { file: '02card.jpg', altFile: '2.jpg', title: 'Hint', text: "Three butterflies. Three hopes. Each one belongs to someone. But they are slowly flying away. Can you guess who the three are?" },
+        { file: '03card.jpg', altFile: '3.jpg', title: 'Hint', text: "Think about the Carter's past. Look closely. Think wisely. From your perspective, what do you see? What does the past tell you about the Carters? Maybe the answers were there all along." },
+        { file: '04card.jpg', altFile: '4.jpg', title: 'Hint', text: "Look at the stars above him. Their formation is not random. Find the pattern. Find its name. Then you will understand what it means." },
+        { file: 'cardnw.png', altFile: 'cardnw.png', title: 'Hint', text: "A rose. A blood stain. One represents love. The other hides a name. Look closely. Can you identify the person?" },
+        { file: '06card.jpg', altFile: '6.jpg', title: 'Hint', text: "Someone who carries pride and honor, dedicated to a long journey. But in this world, not everyone can be trusted. Operation New Dawn has failed before not once, not twice, but many times. Behind every failure is one powerful personality. Can you guess who? Time will reveal the truth." },
+        { file: '07card.jpg', altFile: '7.jpg', title: 'Hint', text: "The world will mourn. Officials will send their deepest sympathies, and the government will move on. But somewhere in the crowd, one person will never forget Carter and will carry his legacy forward. Who is that person?" },
+        { file: '08card.jpg', altFile: '8.jpg', title: 'Hint', text: "The time is 21.07 PM. The first step to represent the story of Distance. Many people cherish the moment, history for America. But one is smiling with tears, filled with pride as well. Yet that personality only hopes one thing, Come Back." }
     ];
 
     cardsData.forEach((data, index) => {
@@ -121,12 +121,25 @@ document.addEventListener('DOMContentLoaded', () => {
         cardFront.className = 'card-face card-front';
         const img = document.createElement('img');
         
-        // Handle missing images gracefully
+        // Multi-path candidates to support both GitHub (fonts/cards/01card.jpg) and local environments
+        const candidatePaths = [
+            `./fonts/cards/${data.file}`,
+            `./cards/${data.file}`,
+            `./cards/${data.altFile}`,
+            `./fonts/cards/${data.altFile}`
+        ];
+        let pathIdx = 0;
+
         img.onerror = function() {
-            this.onerror = null;
-            this.src = './cards/6.jpg'; 
+            pathIdx++;
+            if (pathIdx < candidatePaths.length) {
+                this.src = candidatePaths[pathIdx];
+            } else {
+                this.onerror = null; // Prevent loop
+                this.src = './fonts/cards/06card.jpg';
+            }
         };
-        img.src = `./cards/${data.file}`;
+        img.src = candidatePaths[0];
         img.alt = `Conspiracy Card ${index + 1}`;
         cardFront.appendChild(img);
 
