@@ -1,6 +1,6 @@
 // Custom Audio Player Logic
 function formatTime(seconds) {
-    if (isNaN(seconds)) return "00:00";
+    if (isNaN(seconds) || seconds < 0) return "00:00";
     const min = Math.floor(seconds / 60);
     const sec = Math.floor(seconds % 60);
     return `${min < 10 ? '0' : ''}${min}:${sec < 10 ? '0' : ''}${sec}`;
@@ -12,19 +12,23 @@ window.togglePlay = function(audioId, btn) {
     
     // Pause all other audios
     document.querySelectorAll('audio').forEach(a => {
-        if(a.id !== audioId && !a.paused) {
+        if (a.id !== audioId && !a.paused) {
             a.pause();
-            const otherBtn = a.nextElementSibling;
-            if(otherBtn) otherBtn.querySelector('.play-icon').textContent = '▶';
+            const otherBtn = a.parentElement.querySelector('.play-btn');
+            if (otherBtn) {
+                const otherIcon = otherBtn.querySelector('.play-icon');
+                if (otherIcon) otherIcon.innerHTML = '&#9654;';
+            }
         }
     });
 
     if (audio.paused) {
-        audio.play();
-        icon.textContent = '⏸';
+        audio.play().then(() => {
+            icon.innerHTML = '&#10074;&#10074;';
+        }).catch(e => console.warn('Play interrupted:', e));
     } else {
         audio.pause();
-        icon.textContent = '▶';
+        icon.innerHTML = '&#9654;';
     }
 };
 
@@ -40,76 +44,64 @@ window.seekAudioDrag = function(audioId, input) {
 
 window.seekAudioChange = function(audioId, input) {
     const audio = document.getElementById(audioId);
-    if (!isNaN(audio.duration)) {
+    if (audio && !isNaN(audio.duration)) {
         audio.currentTime = (input.value / 100) * audio.duration;
     }
     isDraggingSeek = false;
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    const enterBtn = document.getElementById('enter-btn');
+    // Progress Bar Animation
+    let progress = 0;
+    const progressBar = document.getElementById('progress-bar');
     const loadingScreen = document.getElementById('loading-screen');
     const mainContent = document.getElementById('main-content');
-    const progressContainer = document.getElementById('progress-container');
-    const progressBar = document.getElementById('progress-bar');
 
-    if (enterBtn) {
-        enterBtn.addEventListener('click', () => {
-            enterBtn.style.display = 'none';
-            if (progressContainer) {
-                progressContainer.style.display = 'block';
-            }
+    const interval = setInterval(() => {
+        progress += Math.random() * 12;
+        if (progress >= 100) {
+            progress = 100;
+            clearInterval(interval);
             
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.random() * 12;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    
-                    // Short delay after 100% before fading out
-                    setTimeout(() => {
-                        loadingScreen.style.opacity = '0';
-                        loadingScreen.style.visibility = 'hidden';
-                        mainContent.style.opacity = '1';
-                        
-                        // Remove loading screen from DOM after transition
-                        setTimeout(() => {
-                            loadingScreen.remove();
-                        }, 1000);
-                    }, 600);
-                }
-                if (progressBar) {
-                    progressBar.style.width = `${progress}%`;
-                }
-            }, 120);
-        });
-    }
+            // Short delay after 100% before fading out
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                loadingScreen.style.visibility = 'hidden';
+                mainContent.style.opacity = '1';
+                
+                // Remove loading screen from DOM after transition
+                setTimeout(() => {
+                    loadingScreen.remove();
+                }, 1000);
+            }, 600);
+        }
+        if (progressBar) {
+            progressBar.style.width = `${progress}%`;
+        }
+    }, 120);
 
-    // Generate 8 Cards
-    const cardsGrid = document.querySelector('.cards-grid');
-    
     // Trailer Setup
-    const trailerVideoId = ''; // Add your Google Drive video ID here when ready (e.g., '1a2b3c4d5e...')
+    const trailerVideoId = '1Xg0rJm3MlwzAbd8kMQoDpjo8tgBl9KJn';
     const trailerContainer = document.getElementById('trailer-container');
     if (trailerContainer) {
         if (trailerVideoId.trim() !== '') {
-            trailerContainer.innerHTML = `<iframe src="https://drive.google.com/file/d/${trailerVideoId}/preview" width="800" height="450" frameborder="0" allow="autoplay; fullscreen" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); max-width: 100%;"></iframe>`;
+            trailerContainer.innerHTML = `<iframe src="https://drive.google.com/file/d/${trailerVideoId}/preview" width="800" height="450" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
         } else {
             trailerContainer.innerHTML = `<div class="trailer-placeholder"><h3>Trailer will upload soon</h3></div>`;
         }
     }
-    
-    // Define the content for each card here. You can change the title and text for each card below:
+
+    // Cards Data
+    const cardsGrid = document.querySelector('.cards-grid');
     const cardsData = [
-        { file: '01card.jpg', title: 'Hint ', text: 'As time flies, some start fading away from our lives. Can you guess whos fading away?' },
-        { file: '02card.jpg', title: 'Hint ', text: 'Three butterflies. Three hopes.Each one belongs to someone.But they are slowly flying away.Can you guess who the three are?' },
-        { file: '03card.jpg', title: 'Hint', text: 'Think about the Carters past.Look closely. Think wisely.From your perspective, what do you see? What does the past tell you about the Carters? Maybe the answers were there all along.' },
-        { file: '04card.jpg', title: 'Hint', text: 'Look at the stars above him.Their formation is not random.Find the pattern.Find its name.Then youl will understand what it means.' },
-        { file: 'cardnw.png', title: 'Hint', text: 'A rose. A blood stain.One represents love.The other hides a name.Look closely.Can you identify the person?' },
-        { file: '06card.jpg', title: 'Hint', text: 'Someone who carries pride and honor, dedicated to a long journey. But in this world, not everyone can be trusted. Operation New Dawn has failed before not once, not twice, but many times. Behind every failure is one powerful personality. Can you guess who? Time will reveal the truth.' },
-        { file: '07card.jpg', title: 'Hint', text: 'The world will mourn. Officials will send their deepest sympathies, and the government will move on. But somewhere in the crowd, one person will never forget Carter and will carry his legacy forward. Who is that person? ' },
-        { file: '08card.jpg', title: 'Hint', text: 'The time is 21.07 PM. The first step to represent the story of Distance. Many people cherish the moment, history for America. But one is smiling with tears, filled with pride as well… yet that personality only hopes one thing,  Come Back… ' }
+        { file: '1.jpg', title: 'Hint', text: "As time flies, some start fading away from our lives. Can you guess who's fading away?" },
+        { file: '2.jpg', title: 'Hint', text: "Three butterflies. Three hopes. Each one belongs to someone. But they are slowly flying away. Can you guess who the three are?" },
+        { file: '3.jpg', title: 'Hint', text: "Think about the Carter's past. Look closely. Think wisely. From your perspective, what do you see? What does the past tell you about the Carters? Maybe the answers were there all along." },
+        { file: '4.jpg', title: 'Hint', text: "Look at the stars above him. Their formation is not random. Find the pattern. Find its name. Then you will understand what it means." },
+        { file: 'cardnw.png', title: 'Hint', text: "A rose. A blood stain. One represents love. The other hides a name. Look closely. Can you identify the person?" },
+        { file: '6.jpg', title: 'Hint', text: "Someone who carries pride and honor, dedicated to a long journey. But in this world, not everyone can be trusted. Operation New Dawn has failed before not once, not twice, but many times. Behind every failure is one powerful personality. Can you guess who? Time will reveal the truth." },
+        { file: '7.jpg', title: 'Hint', text: "The world will mourn. Officials will send their deepest sympathies, and the government will move on. But somewhere in the crowd, one person will never forget Carter and will carry his legacy forward. Who is that person?" },
+        { file: '8.jpg', title: 'Hint', text: "The time is 21.07 PM. The first step to represent the story of Distance. Many people cherish the moment, history for America. But one is smiling with tears, filled with pride as well. Yet that personality only hopes one thing, Come Back." }
     ];
 
     cardsData.forEach((data, index) => {
@@ -131,10 +123,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Handle missing images gracefully
         img.onerror = function() {
-            this.onerror = null; // Prevent infinite loop
-            this.src = './fonts/cards/06card.jpg'; 
+            this.onerror = null;
+            this.src = './cards/6.jpg'; 
         };
-        img.src = `./fonts/cards/${data.file}`;
+        img.src = `./cards/${data.file}`;
         img.alt = `Conspiracy Card ${index + 1}`;
         cardFront.appendChild(img);
 
@@ -155,7 +147,9 @@ document.addEventListener('DOMContentLoaded', () => {
         card.appendChild(cardFront);
         card.appendChild(cardBack);
         cardContainer.appendChild(card);
-        cardsGrid.appendChild(cardContainer);
+        if (cardsGrid) {
+            cardsGrid.appendChild(cardContainer);
+        }
     });
 
     // Audio setup
@@ -163,6 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const progressEl = document.getElementById(`progress-${audio.id}`);
         const seekInput = document.getElementById(`seek-${audio.id}`);
         const timeEl = document.getElementById(`time-${audio.id}`);
+        const defaultDurations = { 'audio1': '04:46', 'audio2': '05:58' };
         
         audio.addEventListener('timeupdate', () => {
             const percent = (audio.currentTime / audio.duration) * 100 || 0;
@@ -177,19 +172,35 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             if (timeEl) {
-                timeEl.textContent = `${formatTime(audio.currentTime)} - ${formatTime(audio.duration)}`;
+                const totalDur = (!isNaN(audio.duration) && audio.duration > 0) ? formatTime(audio.duration) : (defaultDurations[audio.id] || '00:00');
+                timeEl.textContent = `${formatTime(audio.currentTime)} - ${totalDur}`;
             }
         });
 
         audio.addEventListener('loadedmetadata', () => {
-            if (timeEl) {
+            if (timeEl && audio.duration) {
                 timeEl.textContent = `00:00 - ${formatTime(audio.duration)}`;
             }
         });
         
+        audio.addEventListener('pause', () => {
+            const btn = audio.parentElement.querySelector('.play-btn');
+            if (btn) {
+                const icon = btn.querySelector('.play-icon');
+                if (icon) icon.innerHTML = '&#9654;';
+            }
+        });
+
         audio.addEventListener('ended', () => {
-            const btn = audio.nextElementSibling;
-            if(btn) btn.querySelector('.play-icon').textContent = '▶';
+            const btn = audio.parentElement.querySelector('.play-btn');
+            if (btn) {
+                const icon = btn.querySelector('.play-icon');
+                if (icon) icon.innerHTML = '&#9654;';
+            }
+            if (progressEl) progressEl.style.width = '0%';
+            if (seekInput) seekInput.value = 0;
+            const totalDur = (!isNaN(audio.duration) && audio.duration > 0) ? formatTime(audio.duration) : (defaultDurations[audio.id] || '00:00');
+            if (timeEl) timeEl.textContent = `00:00 - ${totalDur}`;
         });
     });
 });
